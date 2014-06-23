@@ -36,3 +36,9 @@
 .navbar-custom .icon-bar {
   	background-color:#33aa33;
 }
+
+html, body
+{
+   height: 100%;
+   min-height: 100%;
+}
