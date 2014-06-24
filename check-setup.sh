@@ -219,23 +219,23 @@ else
   hcidirs=$(ls)
 
   # current lab hardcoded
-  # for i in {1..7} 
-  # do
+  for i in {1..7} 
+  do
     target_dir="lab$i"
-  #if [[ $hcidirs == *"$target_dir"* ]]
-   # then
-    #  echo "Found $target_dir"
-    #else
-     # echo "ERROR: Cannot find $target_dir"
-      #missing_dirs="1"
-    #fi
-  #done
+  if [[ $hcidirs == *"$target_dir"* ]]
+    then
+      echo "Found $target_dir"
+    else
+      echo "ERROR: Cannot find $target_dir"
+      missing_dirs="1"
+    fi
+  done
 
-  #if [ $missing_dirs == "1" ]
-  #then
+  if [ $missing_dirs == "1" ]
+  then
     echo "FAIL: Your introHCI directory is missing the above lab folders."
-  #else
-   # echo "PASS: All required lab directories present."
-  #fi
+  else
+    echo "PASS: All required lab directories present."
+  fi
 
 fi
