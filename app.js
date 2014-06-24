@@ -7,13 +7,25 @@ var express = require('express');
 var http = require('http');
 var path = require('path');
 var handlebars = require('express3-handlebars');
+var mongoose = require('mongoose');
 
-var expressIndex = require('./routes/index');
-var expressResults = require('./routes/results');
-var expressAbout = require('./routes/about');
-var expressHelp = require('./routes/help');
+
 // Example route
 // var user = require('./routes/user');
+var expressIndex = require('./routes/index');
+var expressResults = require('./routes/results');
+var expressConnect = require('./routes/connect');
+var expressNews = require('./routes/news');
+
+
+
+// Connect to the Mongo database, whether locally or on Heroku
+// MAKE SURE TO CHANGE THE NAME FROM 'lab7' TO ... IN OTHER PROJECTS
+var local_database_name = 'LibertyLounge';
+var local_database_uri  = 'mongodb://localhost/' + local_database_name
+var database_uri = process.env.MONGOLAB_URI || local_database_uri
+mongoose.connect(database_uri);
+
 
 var app = express();
 
@@ -42,8 +54,10 @@ if ('development' == app.get('env')) {
 // Add routes here
 app.get('/', expressIndex.view);
 app.get('/results', expressResults.viewResults);
-app.get('/about', expressAbout.viewAbout);
-app.get('/help', expressHelp.viewHelp);
+app.get('/connect', expressConnect.viewConnect);
+app.get('/news/:id', expressNews.projectInfo);
+app.post('/news/new', expressNews.addProject);
+app.post('/news/:id/delete', expressNews.deleteProject);
 // Example route
 // app.get('/users', user.list);
 
